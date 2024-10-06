@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="Utils.Listners"></listener>
+    </listeners>
+    <test verbose="2" preserve-order="true" name="All Test Suite">
+        <classes>
+            <class name="TestCases.SearchTests">
+                <methods>
+                    <include name="testValidProductSearch"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

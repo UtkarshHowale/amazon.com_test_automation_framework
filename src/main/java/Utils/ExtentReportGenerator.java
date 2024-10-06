@@ -28,7 +28,7 @@ public class ExtentReportGenerator extends BasePage {
 	private static Platform platform;
 	private static String reportFileName = "ExtentReport" + ".html";
 	private static String macPath = System.getProperty("user.dir") + "/Reports";
-	private static String windowsPath = System.getProperty("user.dir") + "\\test-output\\ExtentReport";
+	private static String windowsPath = System.getProperty("user.dir") + "/Reports";
 	private static String macReportFileLoc = macPath + "/" + reportFileName;
 	private static String winReportFileLoc = windowsPath + "\\" + reportFileName;
 	private static Properties prop = new Properties();

@@ -9,13 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -33,6 +28,11 @@ public class TestUtils extends BasePage {
 	public static JavascriptExecutor js;
 	public static Select select;
 
+	public TestUtils(){
+
+		PageFactory.initElements(driver, this);
+	}
+
 	public static void takeScreenshotAtEndOfTest() throws IOException {
 
 		File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -42,7 +42,7 @@ public class TestUtils extends BasePage {
 	}
 
 	public static String takeScreenShot() throws Exception {
-		File screenshotAs = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		File screenshotAs = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		String Path = System.getProperty("user.dir") + "/ScreenShot/" + System.currentTimeMillis() + ".png";
 
 		FileUtils.copyFile(screenshotAs, new File(Path));
@@ -68,10 +68,16 @@ public class TestUtils extends BasePage {
 		wait.until(ExpectedConditions.titleIs(expTitle));
 	}
 
-	public static void waitUntilLoadMoreEelemnts(By locator, int time) {
+	public static void waitUntilLoadMoreElements(By locator, int time) {
 
 		wait = new WebDriverWait(driver, Duration.ofSeconds(time));
 		wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, time));
+	}
+
+	public static void waitUntilVisibilityOfAllElements(List<WebElement> element, int time){
+
+		wait = new WebDriverWait(driver, Duration.ofSeconds(time));
+		wait.until(ExpectedConditions.visibilityOfAllElements(element));
 	}
 
 	public static void scrollUntilBottomPage() {
@@ -111,7 +117,7 @@ public class TestUtils extends BasePage {
 		select.selectByValue(value);
 	}
 
-	public static boolean switchToWindowWithTitle(ChromeDriver driver, String windowTitle) {
+	public static boolean switchToWindowWithTitle(WebDriver driver, String windowTitle) {
 		// Get the current window handle
 		String currentWindowHandle = driver.getWindowHandle();
 

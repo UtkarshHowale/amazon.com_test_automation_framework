@@ -21,7 +21,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class BasePage {
 
 	protected static WebDriver driver;
-	protected static ChromeOptions options;
 	protected static FileInputStream file;
 	protected static Properties prop;
 	protected static ExtentReports extent = ExtentReportGenerator.createInstance();
@@ -57,6 +56,7 @@ public class BasePage {
 		}
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(TestUtils.PageLoad_Timeout));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(TestUtils.ImplicitlyWait_TimeOut));
+		driver.manage().window().maximize();
 		driver.get(prop.getProperty("BaseUrl"));
 
 	}
