@@ -117,27 +117,71 @@ public class TestUtils extends BasePage {
 		select.selectByValue(value);
 	}
 
-	public static boolean switchToWindowWithTitle(WebDriver driver, String windowTitle) {
-		// Get the current window handle
-		String currentWindowHandle = driver.getWindowHandle();
+	public static boolean JSClick(WebDriver driver, WebElement ele) {
+		boolean flag = false;
+		try {
+			// WebElement element = driver.findElement(locator);
+			JavascriptExecutor executor = (JavascriptExecutor) driver;
+			executor.executeScript("arguments[0].click();", ele);
+			// driver.executeAsyncScript("arguments[0].click();", element);
 
-		// Get a set of all window handles
-		Set<String> windowHandles = driver.getWindowHandles();
+			flag = true;
 
-		// Iterate through all window handles
-		for (String handle : windowHandles) {
-			// Switch to each window
-			driver.switchTo().window(handle);
-
-			// Check if the title matches
-			if (driver.getTitle().equals(windowTitle)) {
-				return true; // Window found and switched
-			}
 		}
 
-		// Switch back to the original window if the target window is not found
-		driver.switchTo().window(currentWindowHandle);
-		return false; // Window with the specified title not found
+		catch (Exception e) {
+			throw e;
+
+		} finally {
+			if (flag) {
+				System.out.println("Click Action is performed");
+			} else if (!flag) {
+				System.out.println("Click Action is not performed");
+			}
+		}
+		return flag;
+	}
+
+	public static boolean switchToNewWindow(WebDriver driver) {
+		boolean flag = false;
+		try {
+
+			Set<String> s=driver.getWindowHandles();
+			Object popup[]=s.toArray();
+			driver.switchTo().window(popup[1].toString());
+			flag = true;
+			return flag;
+		} catch (Exception e) {
+			flag = false;
+			return flag;
+		} finally {
+			if (flag) {
+				System.out.println("Window is Navigated with title");
+			} else {
+				System.out.println("The Window with title: is not Selected");
+			}
+		}
+	}
+
+	public static boolean switchToOldWindow(WebDriver driver) {
+		boolean flag = false;
+		try {
+
+			Set<String> s=driver.getWindowHandles();
+			Object popup[]=s.toArray();
+			driver.switchTo().window(popup[0].toString());
+			flag = true;
+			return flag;
+		} catch (Exception e) {
+			flag = false;
+			return flag;
+		} finally {
+			if (flag) {
+				System.out.println("Focus navigated to the window with title");
+			} else {
+				System.out.println("The Window with title: is not Selected");
+			}
+		}
 	}
 
 }

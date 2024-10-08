@@ -24,9 +24,6 @@ public class HomePage extends BasePage {
     @FindBy(css = "#nav-search-submit-button")
     WebElement searchButton;
 
-    @FindBy(xpath = "//span[text()=\"No results for \"]")
-    WebElement invalidText;
-
     /**
      * Enters the given search term into the search field.
      *
@@ -44,26 +41,13 @@ public class HomePage extends BasePage {
     /**
      * Clicks on the search button to submit the search.
      */
-    public void clickSearchButton() {
+    public SearchResultsPage clickSearchButton() {
 
         TestUtils.waitUntilElementToBeClickable(searchButton, 10);
         test.get().info("Clicking on the search button.");
         searchButton.click();
         test.get().info("Search button clicked successfully.");
-    }
 
-
-    /**
-     * Method to verify if the 'No results' message is displayed and capture the message.
-     *
-     * @return String - Returns the full error message text if displayed; otherwise, returns an empty string.
-     */
-    public String getNoResultsMessage() {
-
-        test.get().info("Fetching the 'No results' message text from the page.");
-        String messageText = invalidText.getText();
-        test.get().info("Captured 'No results' message: " + messageText);
-        return messageText;
-
+        return new SearchResultsPage();
     }
 }
