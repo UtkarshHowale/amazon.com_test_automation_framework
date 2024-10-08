@@ -46,6 +46,7 @@ public class CartTests extends BasePage {
         productDetailPage = searchResultsPage.clickOnFirstResult();
         productDetailPage.clickAddToCartButton();
         cartPage = productDetailPage.clickCartButton();
+
         String actualProduct = cartPage.getProductTitle();
         String expectedProduct = "Apple iPhone 15 Pro Max (256 GB) - Black Titanium";
         Assert.assertEquals(actualProduct,expectedProduct, "Product title in the cart does not match the expected product title.");
